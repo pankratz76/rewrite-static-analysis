@@ -45,10 +45,6 @@ public class EqualsAvoidsNull extends Recipe {
     private static final MethodMatcher EQUALS_STRING = new MethodMatcher(JAVA_LANG_STRING + " equals(" + JAVA_LANG_OBJECT + ")");
     private static final MethodMatcher EQUALS_OBJECT = new MethodMatcher(JAVA_LANG_OBJECT + " equals(" + JAVA_LANG_OBJECT + ")");
     private static final MethodMatcher EQUALS_IGNORE_CASE = new MethodMatcher(JAVA_LANG_STRING + " equalsIgnoreCase(" + JAVA_LANG_STRING + ")");
-    private static final MethodMatcher COMPARE_TO_CASE =
-            new MethodMatcher(JAVA_LANG_STRING + " compareTo(" + JAVA_LANG_STRING + ")");
-    private static final MethodMatcher COMPARE_TO_IGNORE_CASE = new MethodMatcher(JAVA_LANG_STRING +
-            " compareToIgnoreCase(" + JAVA_LANG_STRING + ")");
     private static final MethodMatcher CONTENT_EQUALS = new MethodMatcher(JAVA_LANG_STRING + " contentEquals(java.lang.CharSequence)");
 
     @Override
@@ -75,8 +71,6 @@ public class EqualsAvoidsNull extends Recipe {
     public TreeVisitor<?, ExecutionContext> getVisitor() {
         return Preconditions.check(
                 Preconditions.or(
-                        new UsesMethod<>(COMPARE_TO_CASE),
-                        new UsesMethod<>(COMPARE_TO_IGNORE_CASE),
                         new UsesMethod<>(CONTENT_EQUALS),
                         new UsesMethod<>(EQUALS_IGNORE_CASE),
                         new UsesMethod<>(EQUALS_OBJECT),
@@ -121,8 +115,6 @@ public class EqualsAvoidsNull extends Recipe {
                         return EQUALS_STRING.matches(methodInvocation) ||
                                 EQUALS_OBJECT.matches(methodInvocation) ||
                                 EQUALS_IGNORE_CASE.matches(methodInvocation) ||
-                                COMPARE_TO_CASE.matches(methodInvocation) ||
-                                COMPARE_TO_IGNORE_CASE.matches(methodInvocation) ||
                                 CONTENT_EQUALS.matches(methodInvocation);
                     }
 
