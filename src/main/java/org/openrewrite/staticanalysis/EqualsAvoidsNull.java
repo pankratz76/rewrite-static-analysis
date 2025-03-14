@@ -122,6 +122,9 @@ public class EqualsAvoidsNull extends Recipe {
                      * Checks whether the given method invocation contains a raw string.
                      */
                     private boolean isStringLiteral(J.MethodInvocation methodInvocation) {
+                        // check for string reference
+                        // if one is a local reference then flip
+                        // else means both are external references which should not be flipped
                         return Primitive.String.equals(methodInvocation.getArguments().get(0).getType())
                                 || Primitive.String.equals(requireNonNull(methodInvocation.getSelect()).getType());
                     }
